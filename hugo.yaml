@@ -1,0 +1,115 @@
+baseURL: "https://ghostpandab00.github.io/"
+title: Vyshnavlal's portfolio
+paginate: 5
+theme: PaperMod
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: Vyshnavlal's portfolio
+  description: "Vyshnavlal's portfolio site"
+  keywords: [Blog, Portfolio, PaperMod]
+  author: Vyshnavlal
+  DateFormat: "January 2, 2006"
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: false
+  ShowRssButtonInSectionTermList: false
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: true
+  showtoc: false
+  tocopen: false
+
+  label:
+    text: "Vyshnavlal"
+    icon: "profile/panda.png"
+    iconHeight: 25
+
+  # profile-mode
+  profileMode:
+    enabled: true # needs to be explicitly set
+    title: Konichiwwa!
+    subtitle: "I'm Vyshnavlal, DevOps engineer who interested in Cloud, DevOps & Opensource"
+    imageUrl: "profile/yuri1.jpg"
+    imageWidth: 130
+    imageHeight: 130
+    imageTitle: dp
+    buttons:
+      - name: Blogs
+        url: blogs
+      - name: Projects
+        url: projects
+
+  socialIcons:
+    - name: email
+      url: "mailto:vyshnavlal6367@gmail.com"
+    - name: linkedin
+      url: "https://in.linkedin.com/in/vyshnavlal-p-0b3b33148"
+    - name: twitter
+      url: "https://twitter.com/"
+    - name: stackoverflow
+      url: "https://stackoverflow.com"
+    - name: github
+      url: "https://github.com/vyshnavlal"
+    - name: cv
+      url: ""
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 1
+    - identifier: experience
+      name: Experience
+      url: /experiences/
+      weight: 2
+    - identifier: blogs
+      name: Blogs
+      url: /blogs/
+      weight: 3
+    - identifier: projects
+      name: Projects
+      url: /projects/
+      weight: 4
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 5
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 6
+    - identifier: notes
+      name: Notes
+      url: /notes/
+      weight: 7
+    - identifier: gallery
+      name: Gallery
+      url: "https://gallery.vyshnavlal.xyz/"
+      weight: 8
+
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON # is necessary
