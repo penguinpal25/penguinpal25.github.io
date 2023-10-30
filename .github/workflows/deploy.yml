@@ -5,7 +5,7 @@ name: Deploy pages on push
 on:
   push:
     branches:
-      - main
+      - gh-pages
 
   workflow_dispatch:
 
