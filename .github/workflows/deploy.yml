@@ -11,7 +11,7 @@ on:
 
 # Set the needed permissions
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -38,8 +38,8 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Build
-        #run: hugo --baseURL "${{ steps.pages.outputs.base_url }}/"
-        run: hugo --config hugo.yaml
+        run: hugo --baseURL "${{ steps.pages.outputs.base_url }}/"
+        #run: hugo --config hugo.yaml
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
