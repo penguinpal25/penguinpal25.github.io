@@ -1,8 +1,8 @@
 # Hugo Portfolio Site
 
-![GitHub last commit](https://img.shields.io/github/last-commit/ghostpandab00/ghostpandab00.github.io)
-![GitHub repo size](https://img.shields.io/github/repo-size/ghostpandab00/ghostpandab00.github.io)
-![GitHub license](https://img.shields.io/github/license/ghostpandab00/ghostpandab00.github.io)
+![GitHub last commit](https://img.shields.io/github/last-commit/vysh0x50/vysh0x50.github.io)
+![GitHub repo size](https://img.shields.io/github/repo-size/vysh0x50/vysh0x50.github.io)
+![GitHub license](https://img.shields.io/github/license/vysh0x50/vysh0x50.github.io)
 
 This repository contains the source code for my personal portfolio site built with Hugo.
 
@@ -35,7 +35,7 @@ Welcome to my portfolio site, built with Hugo and the PaperMod theme! This site 
 
 ## Demo
 
-You can explore the live demo of my portfolio site by clicking [here](https://ghostpandab00.github.io).
+You can explore the live demo of my portfolio site by clicking [here](https://vysh0x50.github.io).
 
 Feel free to navigate through the various sections, check out the projects, and get a feel for the overall design and functionality.
 
@@ -47,7 +47,7 @@ If you'd like to run this site locally:
 2. Clone this repository:
 
    ```bash
-   git clone https://github.com/ghostpandab00/ghostpandab00.github.io.git
+   git clone https://github.com/vysh0x50/vysh0x50.github.io.git
 
 ## License
 
