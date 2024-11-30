@@ -64,62 +64,20 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-      # Slack Notification Step
-      #- name: Notify Slack
-      #  if: always() # Ensures the notification runs regardless of success or failure
-      #  run: |
-      #    curl -X POST -H 'Content-type: application/json' \
-      #    --data '{"text": "Deployment finished with status: ${{ job.status }}.\nView the deployed site here: ${{ steps.deployment.outputs.page_url }}"}' \
-      #    ${{ secrets.SLACK_WEBHOOK_URL }}
-      - name: Notify Slack
-        if: always() # Ensures the notification runs regardless of success or failure
-        run: |
-          status_color="FF0000" # Default to red for failure
-          if [ "${{ job.status }}" = "success" ]; then
-            status_color="36a64f" # Green for success
-          elif [ "${{ job.status }}" = "cancelled" ]; then
-            status_color="#FFCC00" # Orange for cancelled
-          fi
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*GitHub Actions Notification*"
-                }
-              },
-              {
-                "type": "section",
-                "fields": [
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Repository:*\n${{ github.repository }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Workflow:*\n${{ github.workflow }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Branch:*\n${{ github.ref }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Commit:*\n<https://github.com/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Job Status:*\n${{ job.status }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Deployed URL:*\n<${{ steps.deployment.outputs.page_url }}|View Site>"
-                  }
-                ]
-              }
-            ]
-          }' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
-    
+      
+      # Slack Notification
+      - name: Send Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}  # Add your webhook URL in GitHub secrets
+          SLACK_USERNAME: "GitHub Actions Bot"  # Optional: Set a custom name for the bot
+          SLACK_ICON_EMOJI: ":rocket:"  # Optional: Set a custom emoji for the bot
+          SLACK_MESSAGE: |
+            🎉 *GitHub Actions Deployment Notification* 🎉
+            Repository: `${{ github.repository }}`
+            Branch: `${{ github.ref_name }}`
+            Commit: `${{ github.sha }}`
+            Workflow: `${{ github.workflow }}`
+            Status: `${{ job.status }}`
+            Deployed URL: <${{ steps.deployment.outputs.page_url }}|Click to view the site>
+          SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}  # Set color to 'good' for success, 'danger' for failure
