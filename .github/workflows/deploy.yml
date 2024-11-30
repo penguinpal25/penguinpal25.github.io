@@ -46,13 +46,21 @@ jobs:
         with:
           path: ./public
 
-      # Slack Notification Step
-      - name: Notify Slack
-        if: always() # Ensures the notification runs regardless of success or failure
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text": "Build finished with status: ${{ job.status }}"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+      # Slack Notification for Build
+      - name: Send Slack Notification for Build
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}  # Add your webhook URL in GitHub secrets
+          SLACK_USERNAME: "GitHub Actions Bot"  # Optional: Set a custom name for the bot
+          SLACK_ICON_EMOJI: ":hammer_and_wrench:"  # Optional: Set a custom emoji for the bot
+          SLACK_MESSAGE: |
+            ⚙️ *GitHub Actions Build Notification* ⚙️
+            Repository: `${{ github.repository }}`
+            Branch: `${{ github.ref_name }}`
+            Commit: `${{ github.sha }}`
+            Workflow: `${{ github.workflow }}`
+            Status: `${{ job.status }}`
+          SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}  # Set color to 'good' for success, 'danger' for failure
 
   deploy:
     environment:
