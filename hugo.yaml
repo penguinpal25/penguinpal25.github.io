@@ -92,10 +92,10 @@ menu:
       name: Notes
       url: "https://vyshnavlal.xyz/notes-mkdocs/"
       weight: 7
-    - identifier: gallery
-      name: Gallery
-      url: "https://gallery.vyshnavlal.xyz/"
-      weight: 8
+    #- identifier: gallery
+    #  name: Gallery
+    #  url: "https://gallery.vyshnavlal.xyz/"
+    #  weight: 8
 
 pygmentsUseClasses: true
 markup:
