@@ -74,11 +74,11 @@ jobs:
       - name: Notify Slack
         if: always() # Ensures the notification runs regardless of success or failure
         run: |
-          status_color="danger" # Default to red for failure
+          status_color="FF0000" # Default to red for failure
           if [ "${{ job.status }}" = "success" ]; then
-            status_color="good" # Green for success
+            status_color="36a64f" # Green for success
           elif [ "${{ job.status }}" = "cancelled" ]; then
-            status_color="#FFA500" # Orange for cancelled
+            status_color="#FFCC00" # Orange for cancelled
           fi
           curl -X POST -H 'Content-type: application/json' \
           --data '{
