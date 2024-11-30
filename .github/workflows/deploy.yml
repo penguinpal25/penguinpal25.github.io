@@ -65,9 +65,55 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
       # Slack Notification Step
+      #- name: Notify Slack
+      #  if: always() # Ensures the notification runs regardless of success or failure
+      #  run: |
+      #    curl -X POST -H 'Content-type: application/json' \
+      #    --data '{"text": "Deployment finished with status: ${{ job.status }}.\nView the deployed site here: ${{ steps.deployment.outputs.page_url }}"}' \
+      #    ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Notify Slack
         if: always() # Ensures the notification runs regardless of success or failure
         run: |
           curl -X POST -H 'Content-type: application/json' \
-          --data '{"text": "Deployment finished with status: ${{ job.status }}.\nView the deployed site here: ${{ steps.deployment.outputs.page_url }}"}' \
+          --data '{
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*GitHub Actions Notification*"
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Repository:*\n${{ github.repository }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Workflow:*\n${{ github.workflow }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Branch:*\n${{ github.ref }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Commit:*\n<https://github.com/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Job Status:*\n${{ job.status }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Deployed URL:*\n<${{ steps.deployment.outputs.page_url }}|View Site>"
+                  }
+                ]
+              }
+            ]
+          }' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
+    
