@@ -46,6 +46,14 @@ jobs:
         with:
           path: ./public
 
+      # Slack Notification Step
+      - name: Notify Slack
+        if: always() # Ensures the notification runs regardless of success or failure
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text": "Build finished with status: ${{ job.status }}"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
+
   deploy:
     environment:
       name: github-pages
@@ -56,3 +64,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+      # Slack Notification Step
+      - name: Notify Slack
+        if: always() # Ensures the notification runs regardless of success or failure
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text": "Deployment finished with status: ${{ job.status }}.\nView the deployed site here: ${{ steps.deployment.outputs.page_url }}"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
